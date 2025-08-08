@@ -30,7 +30,7 @@ export default function Home() {
         </div>
 
         <div className="rounded-lg p-4 bg-[var(--surface)] border border-black/10 dark:border-white/10">
-          <h2 className="font-semibold mb-2">Texto</h2>
+          <h2 className="font-semibold mb-2">Texto </h2>
           <p className="text-[var(--foreground)]/80">Este texto muda conforme o tema selecionado (light, dark, forest).</p>
         </div>
       </div>
