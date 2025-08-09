@@ -75,7 +75,7 @@ export default function Menu() {
                 {/* Menu mobile drop-down */}
                 {open && (
                     <nav ref={mobileMenuRef} className="md:hidden absolute top-[90px] left-0 w-full border-b border-[#292c36] bg-[var(--background)]">
-                        <ul className="flex flex-col gap-2 px-10 py-4">
+                        <ul className="flex flex-col gap-2 px-10 py-4 text-[#84868a]">
                             <li>
                                 <a onClick={() => setOpen(false)} className="block py-2 hover:text-primary transition" href="#perfil">Perfil</a>
                             </li>
