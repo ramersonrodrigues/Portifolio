@@ -20,10 +20,10 @@
 
 /* Tema DARK */
 .dark {
-  --background: #0a0a0a;
+  --background: #030712;
   --foreground: #ededed;
   --surface: #1a1a1a;
-  --primary: #60a5fa;
+  --primary: #ffffff;
   --secondary: #34d399;
   --accent: #a78bfa;
   color-scheme: dark;
