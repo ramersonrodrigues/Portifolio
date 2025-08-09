@@ -67,10 +67,10 @@ export default function Menu() {
                                 <a className="hover:text-primary transition" href="#projects">Projetos</a>
                             </li>
                             <li>
-                                <a className="hover:text-primary transition" href="#reviews">Reviews</a>
+                                <a className="hover:text-primary transition" href="#reviews">Reviews</a> 
                             </li>
                         </ul>
-                    </nav>
+                    </nav> 
                 </div>
                 {/* Menu mobile drop-down */}
                 {open && (
