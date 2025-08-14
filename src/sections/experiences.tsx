@@ -16,7 +16,7 @@ export default function Experiences() {
                                 <div className="w-full border-t border-gray-800 mb-12"></div>
                             )}
                             {/* Layout com empresa à esquerda e cargos à direita */}
-                            <div className="flex flex-col md:flex-row">
+                            <div className="flex flex-col md:flex-row md:gap-8">
                                 {/* Informações da empresa - LADO ESQUERDO */}
                                 <div className="w-full md:w-1/3 mb-6 md:mb-0">
                                     <div className="md:pr-8 md:sticky md:top-20">
@@ -26,9 +26,9 @@ export default function Experiences() {
                                                 style={{ backgroundColor: company.color + '20', borderColor: company.color }}
                                             >
                                                 {company.icon === 'code' ? (
-                                                    <BriefcaseIcon className="w-8 h-8" style={{ color: company.color }} />
+                                                    <BriefcaseIcon aria-hidden="true" className="w-8 h-8" style={{ color: company.color }} />
                                                 ) : (
-                                                    <PhoneIcon className="w-8 h-8" style={{ color: company.color }} />
+                                                    <PhoneIcon aria-hidden="true" className="w-8 h-8" style={{ color: company.color }} />
                                                 )}
                                             </div>
                                             <h3 className="text-xl font-bold text-white mb-2 text-center md:text-left">{company.name}</h3>
@@ -42,8 +42,7 @@ export default function Experiences() {
                                     </div>
                                 </div>
 
-                                {/* Espaço entre empresa e cargos */}
-                                <div className="hidden md:block w-8"></div>
+                                {/* Espaço entre empresa e cargos removido em favor de gap do flex */}
 
                                 {/* Cargos na empresa - LADO DIREITO */}
                                 <div className="w-full md:w-2/3 relative">
@@ -52,15 +51,15 @@ export default function Experiences() {
                                         {/* Lista de cargos */}
                                         <ul className="list-none m-0 p-0">
                                             {company.positions.map((position, posIndex) => (
-                                                <li key={position.id} className={`relative ${posIndex < company.positions.length - 1 ? 'mb-12' : ''}`}>
+                                                <li key={position.id} className="relative mb-12 last:mb-0">
                                                     <div className="flex">
                                                         {/* Coluna da timeline (apenas bolinha; linha é do contêiner pai) */}
                                                         <div className="hidden md:block relative w-8 mr-4">
                                                             {/* Bolinha com anel para não encostar na linha */}
-                                                            <div className="absolute left-1/2 -translate-x-1/2 top-2 w-2 h-2 rounded-full bg-white ring-6 ring-[#030712] z-10"></div>
+                                                            <div className="absolute left-1/2 -translate-x-1/2 top-2 w-2 h-2 rounded-full bg-white/80 ring-6 ring-[#030712] z-10"></div>
                                                             {/* Segmento de linha somente se houver mais de um cargo e não for o último */}
                                                             {company.positions.length > 1 && posIndex < company.positions.length - 1 && (
-                                                                <div className="absolute left-4 top-7 bottom-[-48px] w-px bg-white"></div>
+                                                                <div className="absolute left-4 top-7 bottom-[-48px] w-px bg-white/30"></div>
                                                             )}
                                                         </div>
 
@@ -76,17 +75,21 @@ export default function Experiences() {
                                                                 </div>
                                                             </div>
 
-                                                            {/* Lista de descrições */}
-                                                            {position.description.map((desc, i) => (
-                                                                <label key={i} className="block mb-1">{desc}</label>
-                                                            ))}
+                                                            {/* Lista de descrições semântica */}
+                                                            {position.description.length > 0 && (
+                                                                <ul className="list-disc pl-5 text-gray-300 space-y-1">
+                                                                    {position.description.map((desc, i) => (
+                                                                        <li key={i}>{desc}</li>
+                                                                    ))}
+                                                                </ul>
+                                                            )}
 
                                                             {/* Skills/Competências */}
                                                             <div className="flex flex-wrap gap-2 mt-3">
                                                                 {position.skills.map((skill, i) => (
                                                                     <span
                                                                         key={i}
-                                                                        className="mt-2 inline-flex items-center text-gray-300 px-3 py-1 rounded-full text-sm border"
+                                                                        className="mt-2 inline-flex items-center text-gray-300 px-3 py-1 rounded-full text-sm border transition-colors hover:bg-white/10"
                                                                         style={{ borderColor: company.color + '60', backgroundColor: company.color + '20' }}
                                                                     >
                                                                         {skill}
