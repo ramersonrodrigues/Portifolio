@@ -1,5 +1,5 @@
 "use client";
- 
+
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { useEffect, useRef, useState } from "react";
 
@@ -55,10 +55,10 @@ export default function Menu() {
                                 <a className="hover:text-primary transition" href="#perfil">Perfil</a>
                             </li>
                             <li>
-                                <a className="hover:text-primary transition" href="#experiences">Experiências</a>
+                                <a className="hover:text-primary transition" href="#certifications">Certificações</a>
                             </li>
                             <li>
-                                <a className="hover:text-primary transition" href="#certifications">Certificações</a>
+                                <a className="hover:text-primary transition" href="#experiences">Experiências</a>
                             </li>
                             <li>
                                 <a className="hover:text-primary transition" href="#skills">Skills</a>
@@ -67,10 +67,10 @@ export default function Menu() {
                                 <a className="hover:text-primary transition" href="#projects">Projetos</a>
                             </li>
                             <li>
-                                <a className="hover:text-primary transition" href="#reviews">Reviews</a> 
+                                <a className="hover:text-primary transition" href="#reviews">Reviews</a>
                             </li>
                         </ul>
-                    </nav> 
+                    </nav>
                 </div>
                 {/* Menu mobile drop-down */}
                 {open && (
