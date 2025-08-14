@@ -54,12 +54,12 @@ export default function Experiences() {
                                                 <li key={position.id} className="relative mb-12 last:mb-0">
                                                     <div className="flex">
                                                         {/* Coluna da timeline (apenas bolinha; linha é do contêiner pai) */}
-                                                        <div className="hidden md:block relative w-8 mr-4">
+                                                        <div className="relative w-6 mr-3 md:w-8 md:mr-4">
                                                             {/* Bolinha com anel para não encostar na linha */}
                                                             <div className="absolute left-1/2 -translate-x-1/2 top-2 w-2 h-2 rounded-full bg-white/80 ring-6 ring-[#030712] z-10"></div>
                                                             {/* Segmento de linha somente se houver mais de um cargo e não for o último */}
                                                             {company.positions.length > 1 && posIndex < company.positions.length - 1 && (
-                                                                <div className="absolute left-4 top-7 bottom-[-48px] w-px bg-white/30"></div>
+                                                                <div className="absolute left-3 md:left-4 top-7 bottom-[-48px] w-px bg-white/30"></div>
                                                             )}
                                                         </div>
 
@@ -75,13 +75,11 @@ export default function Experiences() {
                                                                 </div>
                                                             </div>
 
-                                                            {/* Lista de descrições semântica */}
+                                                            {/* Descrição em texto único */}
                                                             {position.description.length > 0 && (
-                                                                <ul className="list-disc pl-5 text-gray-300 space-y-1">
-                                                                    {position.description.map((desc, i) => (
-                                                                        <li key={i}>{desc}</li>
-                                                                    ))}
-                                                                </ul>
+                                                                <p className="text-gray-300">
+                                                                    {position.description.join(' ')}
+                                                                </p>
                                                             )}
 
                                                             {/* Skills/Competências */}
