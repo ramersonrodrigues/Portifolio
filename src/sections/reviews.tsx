@@ -207,17 +207,7 @@ export default function Reviews() {
   return (
     <section id="reviews" className="bg-[#eae8ec] rounded-t-[28px] py-16">
       <div className="w-full mx-auto max-w-[1280px] p-5 px-10">
-        <div className="mb-6 md:mb-8 flex items-center justify-between gap-3">
-          <h2 className="text-3xl font-bold text-gray-800 mb-0 text-center md:text-left flex-1">Avaliações</h2>
-          <a
-            href={REVIEW_FORM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-lg bg-sky-600 text-white font-medium hover:bg-sky-700 transition whitespace-nowrap"
-          >
-            Deixar depoimento
-          </a>
-        </div>
+        <h2 className="text-3xl font-bold text-gray-800 mb-10 text-center">Depoimentos</h2>
 
         <div className="w-full relative">
           <div
@@ -237,8 +227,8 @@ export default function Reviews() {
             </div>
           </div>
         </div>
-        {/* Botão para mobile, abaixo do carrossel */}
-        <div className="mt-8 flex md:hidden items-center justify-center">
+        {/* Botão abaixo do carrossel, visível em todos os tamanhos */}
+        <div className="mt-10 flex items-center justify-center">
           <a
             href={REVIEW_FORM_URL}
             target="_blank"

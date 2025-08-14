@@ -5,7 +5,7 @@ export default function Projects() {
   return (
     <section id="projects" className="py-16">
       <div className="w-full mx-auto max-w-[1280px] p-5 px-10">
-        <h2 className="text-3xl font-bold text-gray-800 mb-10 text-center">Projetos</h2>
+        <h2 className="text-3xl font-bold text-white mb-10 text-center">Projetos</h2>
 
         <div className="w-full grid gap-8 md:gap-10">
           {projects.map((p, idx) => (
