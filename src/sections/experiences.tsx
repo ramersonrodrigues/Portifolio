@@ -47,49 +47,58 @@ export default function Experiences() {
 
                                 {/* Cargos na empresa - LADO DIREITO */}
                                 <div className="w-full md:w-2/3 relative">
-                                    {/* Espaço para alinhamento dos cargos */}
+                                    {/* Lista de cargos com timeline lateral */}
+                                    <div className="relative">
+                                        {/* Lista de cargos */}
+                                        <ul className="list-none m-0 p-0">
+                                            {company.positions.map((position, posIndex) => (
+                                                <li key={position.id} className={`relative ${posIndex < company.positions.length - 1 ? 'mb-12' : ''}`}>
+                                                    <div className="flex">
+                                                        {/* Coluna da timeline (apenas bolinha; linha é do contêiner pai) */}
+                                                        <div className="hidden md:block relative w-8 mr-4">
+                                                            {/* Bolinha com anel para não encostar na linha */}
+                                                            <div className="absolute left-1/2 -translate-x-1/2 top-2 w-2 h-2 rounded-full bg-white ring-6 ring-[#030712] z-10"></div>
+                                                            {/* Segmento de linha somente se houver mais de um cargo e não for o último */}
+                                                            {company.positions.length > 1 && posIndex < company.positions.length - 1 && (
+                                                                <div className="absolute left-4 top-7 bottom-[-48px] w-px bg-white"></div>
+                                                            )}
+                                                        </div>
 
-                                    {/* Lista de cargos */}
-                                    <ul className="list-none m-0 p-0">
-                                        {company.positions.map((position, posIndex) => (
-                                            <li key={position.id} className={`relative ${posIndex < company.positions.length - 1 ? 'mb-12' : ''}`}>
-                                                <div className="flex">
+                                                        <div className="flex-1">
+                                                            {/* Título e período do cargo */}
+                                                            <div className="mb-3">
+                                                                <h4 className="text-xl font-semibold text-white mb-1">{position.title}</h4>
+                                                                <div className="flex items-center text-gray-400 text-sm">
+                                                                    <span>{position.period}</span>
+                                                                    {position.duration && (
+                                                                        <span className="ml-2 text-gray-500">· {position.duration}</span>
+                                                                    )}
+                                                                </div>
+                                                            </div>
 
-                                                    <div className="flex-1">
-                                                        {/* Título e período do cargo */}
-                                                        <div className="mb-3">
-                                                            <h4 className="text-xl font-semibold text-white mb-1">{position.title}</h4>
-                                                            <div className="flex items-center text-gray-400 text-sm">
-                                                                <span>{position.period}</span>
-                                                                {position.duration && (
-                                                                    <span className="ml-2 text-gray-500">· {position.duration}</span>
-                                                                )}
+                                                            {/* Lista de descrições */}
+                                                            {position.description.map((desc, i) => (
+                                                                <label key={i} className="block mb-1">{desc}</label>
+                                                            ))}
+
+                                                            {/* Skills/Competências */}
+                                                            <div className="flex flex-wrap gap-2 mt-3">
+                                                                {position.skills.map((skill, i) => (
+                                                                    <span
+                                                                        key={i}
+                                                                        className="mt-2 inline-flex items-center text-gray-300 px-3 py-1 rounded-full text-sm border"
+                                                                        style={{ borderColor: company.color + '60', backgroundColor: company.color + '20' }}
+                                                                    >
+                                                                        {skill}
+                                                                    </span>
+                                                                ))}
                                                             </div>
                                                         </div>
-
-                                                        {/* Lista de descrições */}
-                                                        {position.description.map((desc, i) => (
-                                                            <label key={i}>{desc}</label>
-                                                        ))}
-
-
-                                                        {/* Skills/Competências */}
-                                                        <div className="flex flex-wrap gap-2">
-                                                            {position.skills.map((skill, i) => (
-                                                                <span
-                                                                    key={i}
-                                                                    className="mt-2 inline-flex items-center text-gray-300 px-3 py-1 rounded-full text-sm border"
-                                                                    style={{ borderColor: company.color + '60', backgroundColor: company.color + '20' }}
-                                                                >
-                                                                    {skill}
-                                                                </span>
-                                                            ))}
-                                                        </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
