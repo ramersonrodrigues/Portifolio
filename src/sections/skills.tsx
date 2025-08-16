@@ -1,5 +1,7 @@
 "use client";
 
+import Section from "@/components/ui/section";
+
  
 
 type SkillItem = { label: string; img: string };
@@ -35,15 +37,14 @@ export default function Skills() {
   );
 
   return (
-    <section id="skills" className="bg-[#eae8ec] rounded-t-[28px] py-16">
-      <div className="w-full mx-auto max-w-[1280px] p-5 px-10">
-        <h2 className="text-3xl font-bold text-gray-800 mb-10 text-center">Skills</h2>
+    <Section id="skills" title="Skills">
+      <div className="w-full mx-auto max-w-[1280px]">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {SKILLS.map((s, i) => (
             <Card key={`${i}-${s.label}`} item={s} />
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -21,8 +21,8 @@ export interface Company {
 export const companies: Company[] = [
   {
     id: 1,
-    name: "Empreender | Soluções para ecommerce",
-    period: "set de 2021 - o momento",
+    name: "Empreender",
+    period: "",
     duration: "4 anos",
     icon: "code",
     logo: "/images/logos/empreender.png",
@@ -31,7 +31,7 @@ export const companies: Company[] = [
       {
         id: 1,
         title: "Desenvolvedor full stack",
-        period: "set de 2021 - o momento",
+        period: "setembro de 2021 - o momento",
         duration: "4 anos",
         description: [
           "Desenvolvi o frontend completo do app Lily Reviews usando React, Next.js e Tailwind CSS"
@@ -42,8 +42,8 @@ export const companies: Company[] = [
   },
   {
     id: 2,
-    name: "Central IT - Tecnologia em Negócios",
-    period: "dez de 2013 - set de 2016",
+    name: "Central IT",
+    period: "",
     duration: "2 anos 10 meses",
     icon: "support",
     logo: "/images/logos/centralit.png",
@@ -52,7 +52,7 @@ export const companies: Company[] = [
       {
         id: 1,
         title: "Supervisor técnico",
-        period: "jul de 2015 - set de 2016",
+        period: "julho de 2015 - setembro de 2016",
         duration: "1 ano 3 meses",
         description: [
           "Liderei equipe de suporte técnico remoto N1 em contratos com MPOG, MDA e PREV/C"
@@ -62,7 +62,7 @@ export const companies: Company[] = [
       {
         id: 2,
         title: "Técnico de suporte",
-        period: "dez de 2013 - jul de 2015",
+        period: "dezembro de 2013 - julho de 2015",
         duration: "1 ano 8 meses",
         description: [
           "Realizei suporte remoto a órgãos como MPOG, SEDF e MDA com alto índice de satisfação"

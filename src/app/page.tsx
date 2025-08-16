@@ -6,6 +6,7 @@ import Projects from '@/sections/projects';
 import Reviews from '@/sections/reviews';
 import Certifications from '@/sections/certifications';
 import Skills from '@/sections/skills';
+import Section from '@/components/ui/section';
 
 export default function Home() {
   return (

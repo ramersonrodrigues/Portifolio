@@ -1,5 +1,6 @@
 "use client";
 
+import Section from "@/components/ui/section";
 import { useEffect, useRef, useState } from "react";
 
 type ReviewItem = {
@@ -205,43 +206,37 @@ export default function Reviews() {
   );
 
   return (
-    <section id="reviews" className="bg-[#eae8ec] rounded-t-[28px] py-16">
-      <div className="w-full mx-auto max-w-[1280px] p-5 px-10">
-        <h2 className="text-3xl font-bold text-gray-800 mb-10 text-center">Depoimentos</h2>
+    <Section id="reviews" title="Depoimentos" theme="light">
 
-        <div className="w-full relative">
-          <div
-            ref={trackRef}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            className="group cursor-grab overflow-x-auto hide-scrollbar"
-            style={{
-              WebkitOverflowScrolling: "touch",
-              scrollBehavior: "auto",
-              msOverflowStyle: "none",
-              scrollbarWidth: "none",
-            }}
-          >
-            <div className="flex items-center py-2 pr-4">
-              {renderItems()}
-            </div>
+      <div className="w-full relative">
+        <div
+          ref={trackRef}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          className="group cursor-grab overflow-x-auto hide-scrollbar"
+          style={{
+            WebkitOverflowScrolling: "touch",
+            scrollBehavior: "auto",
+            msOverflowStyle: "none",
+            scrollbarWidth: "none",
+          }}
+        >
+          <div className="flex items-center py-2 pr-4">
+            {renderItems()}
           </div>
         </div>
-        {/* Botão abaixo do carrossel, visível em todos os tamanhos */}
-        <div className="mt-10 flex items-center justify-center">
-          <a
-            href={REVIEW_FORM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-sky-600 text-white font-medium hover:bg-sky-700 transition"
-          >
-            Deixar depoimento
-          </a>
-        </div>
       </div>
-      <style jsx>{`
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-      `}</style>
-    </section>
+      {/* Botão abaixo do carrossel, visível em todos os tamanhos */}
+      <div className="mt-10 flex items-center justify-center">
+        <a
+          href={REVIEW_FORM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-sky-600 text-white font-medium hover:bg-sky-700 transition"
+        >
+          Deixar depoimento
+        </a>
+      </div>
+    </Section>
   );
 }
