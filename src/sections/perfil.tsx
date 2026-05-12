@@ -1,6 +1,56 @@
-import { ArrowDownIcon, ArrowDownTrayIcon, PlayIcon } from "@heroicons/react/24/solid";
+"use client";
+
+import { ArrowDownTrayIcon, PlayIcon } from "@heroicons/react/24/solid";
+import { useEffect, useState } from "react";
+
+const CAROUSEL_IMAGES = [
+    "https://htmldemo.net/lendex/lendex/assets/images/portrait/portrait-hero.png",
+    "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=900&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=900&auto=format&fit=crop",
+];
+
+const FULL_TEXT = "Olá, eu sou o Râmerson";
 
 export default function Perfil() {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [typedText, setTypedText] = useState("");
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveIndex((prev) => (prev + 1) % CAROUSEL_IMAGES.length);
+        }, 3000);
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        let direction: 1 | -1 = 1;
+        let current = 0;
+        let timeoutId: ReturnType<typeof setTimeout>;
+
+        const tick = () => {
+            setTypedText(FULL_TEXT.slice(0, current));
+
+            const atEnd = current === FULL_TEXT.length && direction === 1;
+            const atStart = current === 0 && direction === -1;
+            if (atEnd || atStart) {
+                timeoutId = setTimeout(() => {
+                    direction = atEnd ? -1 : 1;
+                    current += direction;
+                    tick();
+                }, 500);
+                return;
+            }
+
+            current += direction;
+            timeoutId = setTimeout(tick, 120);
+        };
+
+        current += direction;
+        tick();
+
+        return () => clearTimeout(timeoutId);
+    }, []);
+
     return (
         <section
             id="perfil"
@@ -18,9 +68,9 @@ export default function Perfil() {
             <div className="relative z-10 mx-auto flex min-h-[calc(100vh-90px)] w-full max-w-[1280px] items-center gap-12 px-6 py-10">
                 <div className="flex flex-1 flex-col gap-6">
                     <p className="text-sm font-semibold uppercase tracking-[0.5em] text-slate-300">Developer Portfolio</p>
-                    <div className="space-y-2">
+                    <div className="space-y-1">
                         <h1 className="text-3xl font-semibold leading-tight text-white/90 sm:text-4xl md:text-6xl lg:text-7xl">
-                            Olá, eu sou o <span className="text-slate-100">Râmerson</span>
+                            <span className="text-slate-100">{typedText}</span>
                         </h1>
                         <p className="text-2xl font-light text-white/80 sm:text-3xl md:text-4xl lg:text-5xl">Desenvolvedor Frontend centrado em produtos digitais memoráveis.</p>
                     </div>
@@ -55,15 +105,20 @@ export default function Perfil() {
                         </button>
                     </div>
                 </div>
-                <div className="relative flex-1 rounded-[32px] border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-1 shadow-[0_40px_80px_rgba(2,6,23,0.7)]">
-                    <div className="relative h-[420px] w-full overflow-hidden rounded-[28px] bg-slate-900">
-                        <img
-                            src="https://htmldemo.net/lendex/lendex/assets/images/portrait/portrait-hero.png"
-                            alt="Retrato do Râmerson"
-                            className="h-full w-full object-cover"
-                            loading="lazy"
-                            style={{ animation: 'float 12s ease-in-out infinite, shimmer 8s ease-in-out infinite' }}
-                        />
+                <div className="relative flex-1 rounded-[32px] shadow-[0_40px_80px_rgba(2,6,23,0.7)]">
+                    <div className="relative h-[420px] w-full overflow-hidden rounded-[28px] bg-slate-900/90">
+                        {CAROUSEL_IMAGES.map((image, index) => (
+                            <img
+                                key={image + index}
+                                src={image}
+                                alt="Retrato do Râmerson"
+                                className={`absolute inset-0 h-full w-full object-cover transition-all duration-1000 ease-in-out ${
+                                    index === activeIndex ? "opacity-100 scale-100" : "opacity-0 scale-105"
+                                }`}
+                                loading="lazy"
+                                style={{ animation: index === activeIndex ? "shimmer 4s ease-in-out infinite" : undefined }}
+                            />
+                        ))}
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent" />
                         <div className="absolute left-6 bottom-6 rounded-2xl border border-white/20 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-white/80">
                             UX Aberto • Next.js
