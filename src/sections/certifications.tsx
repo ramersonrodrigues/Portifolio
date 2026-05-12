@@ -2,103 +2,95 @@ import { educationCategories } from "../data/certifications";
 import { AcademicCapIcon, DocumentCheckIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/solid';
 import Section from "../components/ui/section";
 
+const ICON_MAP = {
+    academic: AcademicCapIcon,
+    certificate: DocumentCheckIcon,
+    wrench: WrenchScrewdriverIcon,
+};
+
 export default function Certifications() {
     return (
         <Section id="certifications" title="Formação Acadêmica" theme="light">
-            {educationCategories.map((category, index) => (
-                <div key={category.id} className="mb-12">
-                    {index > 0 && (
-                        <div className="w-full border-t border-gray-300 mb-12"></div>
-                    )}
-                    {/* Layout com instituição à esquerda e cursos/certificações à direita */}
-                    <div className="flex flex-col md:flex-row md:gap-8 ">
-                        {/* Informações da instituição - LADO ESQUERDO */}
-                        <div className="w-full md:w-1/6 mb-6 md:mb-0 ">
-                            <div className="md:pr-8 md:sticky md:top-20">
-                                <div className="flex flex-col items-center md:items-start">
-                                    <div
-                                        className="w-20 h-20 rounded-full flex items-center justify-center mb-4 bg-opacity-20 border-2"
-                                        style={{ backgroundColor: category.color + '20', borderColor: category.color }}
-                                    >
-                                        {category.icon === 'academic' && (
-                                            <AcademicCapIcon aria-hidden="true" aria-label={category.label} className="w-9 h-9 md:w-10 md:h-10" style={{ color: category.color }} />
-                                        )}
-                                        {category.icon === 'certificate' && (
-                                            <DocumentCheckIcon aria-hidden="true" aria-label={category.label} className="w-9 h-9 md:w-10 md:h-10" style={{ color: category.color }} />
-                                        )}
-                                        {category.icon === 'wrench' && (
-                                            <WrenchScrewdriverIcon aria-hidden="true" aria-label={category.label} className="w-9 h-9 md:w-10 md:h-10" style={{ color: category.color }} />
-                                        )}
+            <div className="space-y-6">
+                <p className="mx-auto max-w-3xl text-center text-sm uppercase tracking-[0.4em] text-slate-500">
+                    Educação contínua para garantir fundações sólidas em engenharia de software, dados e experiência do usuário.
+                </p>
+                <div className="grid gap-6 lg:grid-cols-3">
+                    {educationCategories.map((category) => {
+                        const Icon = ICON_MAP[category.icon];
+                        return (
+                            <article
+                                key={category.id}
+                                className="relative overflow-hidden rounded-[32px] border border-slate-200/60 bg-white/80 p-6 shadow-[0_25px_60px_rgba(15,23,42,0.15)] transition hover:-translate-y-1 hover:shadow-[0_35px_70px_rgba(15,23,42,0.25)]"
+                            >
+                                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white via-transparent to-indigo-50 opacity-60 blur-3xl" />
+                                <div className="relative z-10 space-y-6">
+                                    <div className="flex items-center gap-3">
+                                        <div
+                                            className="flex h-14 w-14 items-center justify-center rounded-2xl border border-current"
+                                            style={{ color: category.color, borderColor: category.color }}
+                                        >
+                                            <Icon className="h-7 w-7" />
+                                        </div>
+                                        <div>
+                                            <p className="text-xs uppercase tracking-[0.3em] text-slate-500">{category.label}</p>
+                                            <h3 className="text-xl font-bold text-slate-900">Linha do tempo</h3>
+                                        </div>
                                     </div>
-                                    <h3 className="text-xl font-bold text-gray-900 mb-2 text-center md:text-left">{category.label}</h3>
-                                    {/* Categoria não possui período/duração globais */}
-                                </div>
-                            </div>
-                        </div>
 
-                        {/* Carga Acadêmica - LADO DIREITO */}
-                        <div className="w-full md:w-5/6 relative">
-                            {/* Lista de cursos/certificações com timeline lateral */}
-                            <div className="relative">
-                                {/* Lista */}
-                                <ul className="list-none m-0 p-0">
-                                    {category.courses.map((course, posIndex) => (
-                                        <li key={course.id} className="relative mb-12 last:mb-0">
-                                            <div className="flex">
-                                                {/* Coluna da timeline */}
-                                                <div className="relative w-6 mr-3 md:w-8 md:mr-4">
-                                                    {/* Bolinha com anel para não encostar na linha */}
-                                                    <div className="absolute left-1/2 -translate-x-1/2 top-2 w-2 h-2 rounded-full bg-black/70 ring-6 ring-[#eae8ec] z-10"></div>
-                                                    {/* Segmento de linha somente se houver mais de um item e não for o último */}
-                                                    {category.courses.length > 1 && posIndex < category.courses.length - 1 && (
-                                                        <div className="absolute left-3 md:left-4 top-7 bottom-[-48px] w-px bg-black/20"></div>
-                                                    )}
-                                                </div>
-
-                                                <div className="flex-1">
-                                                    {/* Título e período */}
-                                                    <div className="mb-3">
-                                                        <h4 className="text-xl font-semibold text-gray-900 mb-1">{course.title}</h4>
-                                                        <div className="flex items-center text-gray-600 text-sm">
-                                                            <span>{course.period.replace(' - ', ' até ')}</span>
-                                                            
+                                    <div className="relative pl-6">
+                                        <div className="absolute left-2 top-0 h-full w-px bg-gradient-to-b" style={{ backgroundImage: `linear-gradient(${category.color}, transparent)` }} />
+                                        <ul className="space-y-8">
+                                            {category.courses.map((course) => (
+                                                <li key={course.id} className="relative">
+                                                    <div
+                                                        className="absolute left-0 top-1.5 h-3 w-3 rounded-full"
+                                                        style={{ backgroundColor: category.color }}
+                                                    />
+                                                    <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4">
+                                                        <div className="flex flex-col gap-2 text-sm text-slate-500">
+                                                            <div className="flex items-center justify-between">
+                                                                <span className="text-xs font-semibold uppercase tracking-[0.4em] text-slate-600">
+                                                                    {course.period}
+                                                                </span>
+                                                                {course.duration && (
+                                                                    <span className="rounded-full border border-slate-200 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.4em] text-slate-500">
+                                                                        {course.duration}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                            <h4 className="text-lg font-semibold text-slate-900">{course.title}</h4>
+                                                            {course.description.length > 0 && (
+                                                                <p className="text-sm leading-relaxed text-slate-600">
+                                                                    {course.description.join(' ')}
+                                                                </p>
+                                                            )}
+                                                            <div className="mt-3 flex flex-wrap gap-2">
+                                                                {course.skills.map((skill, i) => (
+                                                                    <span
+                                                                        key={i}
+                                                                        className="rounded-full border border-slate-300 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-600"
+                                                                        style={{ backgroundColor: `${category.color}10`, borderColor: `${category.color}30`, color: category.color }}
+                                                                    >
+                                                                        {skill}
+                                                                    </span>
+                                                                ))}
+                                                            </div>
+                                                            <div className="mt-2 text-xs uppercase tracking-[0.4em] text-slate-400">
+                                                                {course.institution}
+                                                            </div>
                                                         </div>
                                                     </div>
-
-                                                    {/* Descrição em texto único */}
-                                                    {course.description.length > 0 && (
-                                                        <p className="text-gray-700">
-                                                            {course.description.join(' ')}
-                                                        </p>
-                                                    )}
-
-                                                    {/* Disciplinas/Competências */}
-                                                    <div className="flex flex-wrap gap-2 mt-3">
-                                                        {course.skills.map((skill, i) => (
-                                                            <span
-                                                                key={i}
-                                                                className="mt-2 inline-flex items-center text-gray-800 px-3 py-1 rounded-full text-sm border transition-colors hover:bg-black/5"
-                                                                style={{ borderColor: category.color + '60', backgroundColor: category.color + '20' }}
-                                                            >
-                                                                {skill}
-                                                            </span>
-                                                        ))}
-                                                    </div>
-                                                    {/* Instituição */}
-                                                    <div className="mt-3 text-sm text-gray-600">
-                                                        <span className="font-medium text-gray-800">Instituição: </span>
-                                                        <span>{course.institution}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </article>
+                        );
+                    })}
                 </div>
-            ))}
+            </div>
         </Section>
     );
 }

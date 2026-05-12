@@ -1,105 +1,68 @@
+import React from 'react';
 import { ArrowTopRightOnSquareIcon, CodeBracketIcon, PlayCircleIcon } from '@heroicons/react/24/solid';
 import { projects } from "../data/projects";
 import Section from "../components/ui/section";
 
+const CTA = ({ href, label, icon }: { href: string; label: string; icon: React.ComponentType<{ className?: string }> }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center gap-2 rounded-2xl border border-white/30 bg-white/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:border-white/50 hover:bg-white/20"
+  >
+    {React.createElement(icon, { className: 'w-4 h-4' })}
+    {label}
+  </a>
+);
+
+const ProjectCard = ({ project }: { project: (typeof projects)[number] }) => (
+  <article className="relative overflow-hidden rounded-[32px] border border-white/10 bg-slate-900/60 p-6 shadow-[0_20px_80px_rgba(2,6,23,0.7)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_30px_90px_rgba(2,6,23,0.85)]">
+    <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-500/10 opacity-70 blur-3xl" />
+    <div className="relative space-y-6">
+      <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-1">
+        <div className="overflow-hidden rounded-[26px] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+          <img
+            src={project.image}
+            alt={project.title}
+            loading="lazy"
+            className="h-60 w-full object-cover transition duration-500 hover:scale-105"
+          />
+        </div>
+      </div>
+      <div className="space-y-2">
+        {project.subtitle && (
+          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-sky-300/80">{project.subtitle}</p>
+        )}
+        <h3 className="text-2xl font-bold text-white">{project.title}</h3>
+        <p className="text-base text-slate-200 leading-relaxed">{project.description}</p>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {project.techs.map((tech) => (
+          <span
+            key={tech}
+            className="inline-flex items-center rounded-full border border-white/20 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-100"
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+      <div className="flex flex-wrap gap-3">
+        {project.videoUrl && <CTA href={project.videoUrl} label="Vídeo" icon={PlayCircleIcon} />}
+        {project.githubUrl && <CTA href={project.githubUrl} label="Código" icon={CodeBracketIcon} />}
+        {project.demoUrl && <CTA href={project.demoUrl} label="Preview" icon={ArrowTopRightOnSquareIcon} />}
+      </div>
+    </div>
+  </article>
+);
+
 export default function Projects() {
   return (
     <Section id="projects" title="Projetos" theme="dark">
-      <div className="flex gap-10 flex-col">
-        {projects.map((p, idx) => (
-          <article
-            key={p.id}
-            className="relative overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-sm"
-          >
-            <div className="flex flex-col md:flex-row items-stretch">
-              {/* Imagem em blob (clip-path) */}
-              <div className="md:w-[44%] p-6 md:p-8 flex items-center justify-center">
-                <div
-                  className="w-full max-w-[520px] aspect-square bg-gray-100 overflow-hidden"
-                  style={{
-                    WebkitClipPath:
-                      "path('M74.5,2.2c18.6,2.9,34.7,13,47.3,26.2c12.6,13.2,21.7,29.6,24.4,48.2c2.7,18.6-1,39.4-12.7,54.7c-11.7,15.3-31.4,25-52.2,27.9c-20.8,3-42.7-0.1-59.8-10.6C4.5,138.2-7,121.1-12,102.7C-17,84.3-15.7,64.5-6.6,48.6C2.5,32.7,20.4,20.6,38.9,12.6C57.4,4.7,75.9-0.7,94.5,1.5Z')",
-                    clipPath:
-                      "path('M74.5,2.2c18.6,2.9,34.7,13,47.3,26.2c12.6,13.2,21.7,29.6,24.4,48.2c2.7,18.6-1,39.4-12.7,54.7c-11.7,15.3-31.4,25-52.2,27.9c-20.8,3-42.7-0.1-59.8-10.6C4.5,138.2-7,121.1-12,102.7C-17,84.3-15.7,64.5-6.6,48.6C2.5,32.7,20.4,20.6,38.9,12.6C57.4,4.7,75.9-0.7,94.5,1.5Z')",
-                  }}
-                >
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-
-              {/* Texto e CTAs */}
-              <div className="md:w-[56%] px-6 md:px-8 py-6 md:py-10 flex flex-col">
-                {p.subtitle && (
-                  <p className="text-sm font-semibold text-[#0ea5e9] tracking-wide mb-2">
-                    {p.subtitle}
-                  </p>
-                )}
-                <h3 className="text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight mb-3">
-                  {p.title}
-                </h3>
-                <p className="text-gray-700 mb-4 md:mb-6">
-                  {p.description}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {p.techs.map((t) => (
-                    <span
-                      key={t}
-                      className="inline-flex items-center px-3 py-1 rounded-full text-sm border border-gray-200 bg-gray-50 text-gray-700"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-auto flex flex-wrap gap-3">
-                  {p.videoUrl && (
-                    <a
-                      href={p.videoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-600 text-white font-medium hover:bg-sky-700 transition"
-                    >
-                      <PlayCircleIcon className="w-5 h-5" aria-hidden="true" />
-                      Ver vídeo
-                    </a>
-                  )}
-                  {p.githubUrl && (
-                    <a
-                      href={p.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-gray-800 font-medium hover:bg-gray-50 transition"
-                    >
-                      <CodeBracketIcon className="w-5 h-5" aria-hidden="true" />
-                      Código (GitHub)
-                    </a>
-                  )}
-                  {p.demoUrl && (
-                    <a
-                      href={p.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-gray-800 font-medium hover:bg-gray-50 transition"
-                    >
-                      <ArrowTopRightOnSquareIcon className="w-5 h-5" aria-hidden="true" />
-                      Preview
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-
-
-          </article>
-
+      <div className="grid gap-8 lg:grid-cols-2">
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
         ))}
       </div>
-    </Section >
+    </Section>
   );
 }

@@ -2,6 +2,7 @@
 
 import Section from "@/components/ui/section";
 import { useEffect, useRef, useState } from "react";
+import { StarIcon } from '@heroicons/react/24/solid';
 
 type ReviewItem = {
   id: string;
@@ -173,22 +174,35 @@ export default function Reviews() {
   const Stars = ({ n }: { n: number }) => (
     <div className="flex items-center gap-1">
       {Array.from({ length: 5 }).map((_, i) => (
-        <span key={i} className={i < n ? "text-yellow-500" : "text-gray-300"}>★</span>
+        <StarIcon
+          key={i}
+          className={i < n ? 'w-5 h-5 text-amber-400' : 'w-5 h-5 text-slate-400/80'}
+        />
       ))}
     </div>
   );
 
   const Card = ({ item }: { item: ReviewItem }) => (
-    <div className="shrink-0 w-[320px] md:w-[420px] h-[220px] md:h-[240px] rounded-xl bg-white text-gray-800 shadow-sm border border-gray-200 flex flex-col p-5 md:p-6 mx-2 md:mx-3 select-none">
-      <div className="flex items-center gap-4 mb-3">
-        <img src={item.avatar} alt={item.name} className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover" loading="lazy" />
+    <div className="shrink-0 w-[320px] md:w-[420px] h-[260px] rounded-[28px] border border-slate-200/30 bg-white/80 p-6 shadow-[0_30px_80px_rgba(15,23,42,0.25)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:shadow-[0_40px_100px_rgba(15,23,42,0.35)] mx-2">
+      <div className="flex items-center gap-4 mb-4">
+        <div className="relative">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400/30 via-sky-500/20 to-purple-500/40 blur-2xl" />
+          <img
+            src={item.avatar}
+            alt={item.name}
+            className="relative w-14 h-14 rounded-full border border-white shadow-inner object-cover"
+            loading="lazy"
+          />
+        </div>
         <div>
-          <div className="text-base md:text-lg font-semibold text-gray-900">{item.name}</div>
-          <div className="text-xs md:text-sm text-gray-600">{item.role} • {item.company}</div>
+          <div className="text-lg font-semibold text-slate-900">{item.name}</div>
+          <div className="text-xs uppercase tracking-[0.4em] text-slate-400">
+            {item.role} • {item.company}
+          </div>
         </div>
       </div>
       <Stars n={item.rating} />
-      <p className="text-sm md:text-base text-gray-700 mt-3 leading-relaxed line-clamp-4">
+      <p className="mt-4 text-sm leading-relaxed text-slate-600">
         “{item.quote}”
       </p>
     </div>
